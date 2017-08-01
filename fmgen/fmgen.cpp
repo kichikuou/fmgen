@@ -26,8 +26,6 @@
 #include "fmgen/fmgen.h"
 #include "fmgen/fmgeninl.h"
 
-#define LOGNAME "fmgen"
-
 // ---------------------------------------------------------------------------
 
 #define FM_EG_BOTTOM 955

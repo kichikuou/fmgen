@@ -9,8 +9,6 @@
 #include "fmgen/opm.h"
 #include "fmgen/fmgeninl.h"
 
-//#define LOGNAME "opm"
-
 namespace FM
 {
 
