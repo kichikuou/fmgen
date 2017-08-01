@@ -4,10 +4,10 @@
 // ---------------------------------------------------------------------------
 //  $Id: opna.cpp,v 1.68 2003/06/12 14:03:44 cisc Exp $
 
-#include "headers.h"
-#include "misc.h"
-#include "opna.h"
-#include "fmgeninl.h"
+#include "win/headers.h"
+#include "common/misc.h"
+#include "fmgen/opna.h"
+#include "fmgen/fmgeninl.h"
 
 #define BUILD_OPN
 #define BUILD_OPNA

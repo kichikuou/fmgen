@@ -21,10 +21,10 @@
 //      ほか掲示板等で様々なご助言，ご支援をお寄せいただいた皆様に
 // ---------------------------------------------------------------------------
 
-#include "headers.h"
-#include "misc.h"
-#include "fmgen.h"
-#include "fmgeninl.h"
+#include "win/headers.h"
+#include "common/misc.h"
+#include "fmgen/fmgen.h"
+#include "fmgen/fmgeninl.h"
 
 #define LOGNAME "fmgen"
 

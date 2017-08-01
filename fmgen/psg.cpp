@@ -4,9 +4,9 @@
 // ---------------------------------------------------------------------------
 //  $Id: psg.cpp,v 1.10 2002/05/15 21:38:01 cisc Exp $
 
-#include "headers.h"
-#include "misc.h"
-#include "psg.h"
+#include "win/headers.h"
+#include "common/misc.h"
+#include "fmgen/psg.h"
 
 // ---------------------------------------------------------------------------
 //  コンストラクタ・デストラクタ
