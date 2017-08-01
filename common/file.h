@@ -3,7 +3,7 @@
 #if !defined(win32_file_h)
 #define win32_file_h
 
-#include "types.h"
+#include "common/types.h"
 
 // ---------------------------------------------------------------------------
 
