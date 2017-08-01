@@ -25,7 +25,7 @@ PSG::~PSG()
 }
 
 // ---------------------------------------------------------------------------
-//  PSG を初期化する(RESET) 
+//  PSG を初期化する(RESET)
 //
 void PSG::Reset()
 {
@@ -44,7 +44,7 @@ void PSG::SetClock(int clock, int rate)
     tperiodbase = int((1 << toneshift ) / 4.0 * clock / rate);
     eperiodbase = int((1 << envshift  ) / 4.0 * clock / rate);
     nperiodbase = int((1 << noiseshift) / 4.0 * clock / rate);
-    
+
     // 各データの更新
     int tmp;
     tmp = ((reg[0] + reg[1] * 256) & 0xfff);
@@ -100,7 +100,7 @@ void PSG::SetVolume(int volume)
 }
 
 void PSG::SetChannelMask(int c)
-{ 
+{
     mask = ~c;
     for (int i=0; i<3; i++)
         olevel[i] = mask & (1 << i) ? EmitTable[(reg[8+i] & 15) * 2 + 1] : 0;
@@ -125,7 +125,7 @@ void PSG::MakeEnvelopTable()
     for (int i=0; i<16*2; i++)
     {
         uint8 v = table2[table1[i]];
-        
+
         for (int j=0; j<32; j++)
         {
             *ptr++ = EmitTable[v];
@@ -153,17 +153,17 @@ void PSG::SetReg(uint regnum, uint8 data)
             tmp = ((reg[0] + reg[1] * 256) & 0xfff);
             speriod[0] = tmp ? tperiodbase / tmp : tperiodbase;
             break;
-        
+
         case 2:     // ChB Fine Tune
         case 3:     // ChB Coarse Tune
             tmp = ((reg[2] + reg[3] * 256) & 0xfff);
-            speriod[1] = tmp ? tperiodbase / tmp : tperiodbase;   
+            speriod[1] = tmp ? tperiodbase / tmp : tperiodbase;
             break;
-        
+
         case 4:     // ChC Fine Tune
         case 5:     // ChC Coarse Tune
             tmp = ((reg[4] + reg[5] * 256) & 0xfff);
-            speriod[2] = tmp ? tperiodbase / tmp : tperiodbase;   
+            speriod[2] = tmp ? tperiodbase / tmp : tperiodbase;
             break;
 
         case 6:     // Noise generator control
@@ -178,7 +178,7 @@ void PSG::SetReg(uint regnum, uint8 data)
         case 9:
             olevel[1] = mask & 2 ? EmitTable[(data & 15) * 2 + 1] : 0;
             break;
-        
+
         case 10:
             olevel[2] = mask & 4 ? EmitTable[(data & 15) * 2 + 1] : 0;
             break;
@@ -226,15 +226,15 @@ void PSG::Mix(Sample* dest, int nsamples)
         nenable[0]  = (r7 >> 3) & 1;
         nenable[1]  = (r7 >> 4) & 1;
         nenable[2]  = (r7 >> 5) & 1;
-        
+
         int noise, sample;
         uint env;
         uint* p1 = ((mask & 1) && (reg[ 8] & 0x10)) ? &env : &olevel[0];
         uint* p2 = ((mask & 2) && (reg[ 9] & 0x10)) ? &env : &olevel[1];
         uint* p3 = ((mask & 4) && (reg[10] & 0x10)) ? &env : &olevel[2];
-        
+
         #define SCOUNT(ch)  (scount[ch] >> (toneshift+oversampling))
-        
+
         if (p1 != &env && p2 != &env && p3 != &env)
         {
             // エンベロープ無し
@@ -272,10 +272,10 @@ void PSG::Mix(Sample* dest, int nsamples)
                     for (int j=0; j < (1 << oversampling); j++)
                     {
 #ifdef _M_IX86
-                        noise = noisetable[(ncount >> (noiseshift+oversampling+6)) & (noisetablesize-1)] 
+                        noise = noisetable[(ncount >> (noiseshift+oversampling+6)) & (noisetablesize-1)]
                             >> (ncount >> (noiseshift+oversampling+1));
 #else
-                        noise = noisetable[(ncount >> (noiseshift+oversampling+6)) & (noisetablesize-1)] 
+                        noise = noisetable[(ncount >> (noiseshift+oversampling+6)) & (noisetablesize-1)]
                             >> (ncount >> (noiseshift+oversampling+1) & 31);
 #endif
                         ncount += nperiod;
@@ -325,10 +325,10 @@ void PSG::Mix(Sample* dest, int nsamples)
                         ecount &= (1 << (envshift+6+oversampling)) - 1;
                     }
 #ifdef _M_IX86
-                    noise = noisetable[(ncount >> (noiseshift+oversampling+6)) & (noisetablesize-1)] 
+                    noise = noisetable[(ncount >> (noiseshift+oversampling+6)) & (noisetablesize-1)]
                         >> (ncount >> (noiseshift+oversampling+1));
 #else
-                    noise = noisetable[(ncount >> (noiseshift+oversampling+6)) & (noisetablesize-1)] 
+                    noise = noisetable[(ncount >> (noiseshift+oversampling+6)) & (noisetablesize-1)]
                         >> (ncount >> (noiseshift+oversampling+1) & 31);
 #endif
                     ncount += nperiod;

@@ -56,9 +56,9 @@ private:
     uint32 lorigin;
     Error error;
     char path[MAX_PATH];
-    
+
     FileIO(const FileIO&);
     const FileIO& operator=(const FileIO&);
 };
 
-#endif // 
+#endif //

@@ -14,7 +14,7 @@
 // ---------------------------------------------------------------------------
 //  class OPM
 //  OPM に良く似た(?)音を生成する音源ユニット
-//  
+//
 //  interface:
 //  bool Init(uint clock, uint rate, bool);
 //      初期化．このクラスを使用する前にかならず呼んでおくこと．
@@ -24,13 +24,13 @@
 //
 //      rate:   生成する PCM の標本周波数(Hz)
 //
-//              
+//
 //      返値  初期化に成功すれば true
 //
 //  bool SetRate(uint clock, uint rate, bool)
 //      クロックや PCM レートを変更する
 //      引数等は Init と同様．
-//  
+//
 //  void Mix(Sample* dest, int nsamples)
 //      Stereo PCM データを nsamples 分合成し， dest で始まる配列に
 //      加える(加算する)
@@ -40,17 +40,17 @@
 //      ・FM_SAMPLETYPE が short 型の場合クリッピングが行われる.
 //      ・この関数は音源内部のタイマーとは独立している．
 //        Timer は Count と GetNextEvent で操作する必要がある．
-//  
+//
 //  void Reset()
 //      音源をリセット(初期化)する
 //
 //  void SetReg(uint reg, uint data)
 //      音源のレジスタ reg に data を書き込む
-//  
+//
 //  uint ReadStatus()
 //      音源のステータスレジスタを読み出す
 //      busy フラグは常に 0
-//  
+//
 //  bool Count(uint32 t)
 //      音源のタイマーを t [10^(-6) 秒] 進める．
 //      音源の内部状態に変化があった時(timer オーバーフロー)
@@ -60,7 +60,7 @@
 //      音源のタイマーのどちらかがオーバーフローするまでに必要な
 //      時間[μ秒]を返す
 //      タイマーが停止している場合は 0 を返す．
-//  
+//
 //  void SetVolume(int db)
 //      各音源の音量を＋−方向に調節する．標準値は 0.
 //      単位は約 1/2 dB，有効範囲の上限は 20 (10dB)
@@ -84,25 +84,25 @@ namespace FM
         bool    SetRate(uint c, uint r, bool);
         void    SetLPFCutoff(uint freq);
         void    Reset();
-        
+
         void    SetReg(uint addr, uint data);
         uint    GetReg(uint addr);
         uint    ReadStatus() { return status & 0x03; }
-        
+
         void    Mix(Sample* buffer, int nsamples);
-        
+
         void    SetVolume(int db);
         void    SetChannelMask(uint mask);
-        
+
     private:
         virtual void Intr(bool) {}
-    
+
     private:
         enum
         {
             OPM_LFOENTS = 512,
         };
-        
+
         void    SetStatus(uint bit);
         void    ResetStatus(uint bit);
         void    SetParameter(uint addr, uint data);
@@ -112,7 +112,7 @@ namespace FM
         void    MixSubL(int activech, ISample**);
         void    LFO();
         uint    Noise();
-        
+
         int     fmvolume;
 
         uint    clock;
@@ -134,7 +134,7 @@ namespace FM
         uint    noise;
         int32   noisecount;
         uint32  noisedelta;
-        
+
         bool    interpolation;
         uint8   lfofreq;
         uint8   status;

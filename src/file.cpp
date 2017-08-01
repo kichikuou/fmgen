@@ -38,7 +38,7 @@ bool FileIO::Open(const char* filename, uint flg)
     DWORD creation = flg & create ? CREATE_ALWAYS : OPEN_EXISTING;
 
     hfile = CreateFile(filename, access, share, 0, creation, 0, 0);
-    
+
     flags = (flg & readonly) | (hfile == INVALID_HANDLE_VALUE ? 0 : open);
     if (!(flags & open))
     {
@@ -69,7 +69,7 @@ bool FileIO::CreateNew(const char* filename)
     DWORD creation = CREATE_NEW;
 
     hfile = CreateFile(filename, access, share, 0, creation, 0, 0);
-    
+
     flags = (hfile == INVALID_HANDLE_VALUE ? 0 : open);
     SetLogicalOrigin(0);
 
@@ -94,7 +94,7 @@ bool FileIO::Reopen(uint flg)
     DWORD creation = flg & create ? CREATE_ALWAYS : OPEN_EXISTING;
 
     hfile = CreateFile(path, access, share, 0, creation, 0, 0);
-    
+
     flags = (flg & readonly) | (hfile == INVALID_HANDLE_VALUE ? 0 : open);
     SetLogicalOrigin(0);
 
@@ -122,7 +122,7 @@ int32 FileIO::Read(void* dest, int32 size)
 {
     if (!(GetFlags() & open))
         return -1;
-    
+
     DWORD readsize;
     if (!ReadFile(hfile, dest, size, &readsize, 0))
         return -1;
@@ -137,7 +137,7 @@ int32 FileIO::Write(const void* dest, int32 size)
 {
     if (!(GetFlags() & open) || (GetFlags() & readonly))
         return -1;
-    
+
     DWORD writtensize;
     if (!WriteFile(hfile, dest, size, &writtensize, 0))
         return -1;
@@ -152,18 +152,18 @@ bool FileIO::Seek(int32 pos, SeekMethod method)
 {
     if (!(GetFlags() & open))
         return false;
-    
+
     DWORD wmethod;
     switch (method)
     {
-    case begin: 
-        wmethod = FILE_BEGIN; pos += lorigin; 
+    case begin:
+        wmethod = FILE_BEGIN; pos += lorigin;
         break;
-    case current:   
-        wmethod = FILE_CURRENT; 
+    case current:
+        wmethod = FILE_CURRENT;
         break;
-    case end:       
-        wmethod = FILE_END; 
+    case end:
+        wmethod = FILE_END;
         break;
     default:
         return false;

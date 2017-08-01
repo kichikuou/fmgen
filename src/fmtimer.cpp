@@ -16,10 +16,10 @@ void Timer::SetTimerControl(uint data)
 {
     uint tmp = regtc ^ data;
     regtc = uint8(data);
-    
-    if (data & 0x10) 
+
+    if (data & 0x10)
         ResetStatus(1);
-    if (data & 0x20) 
+    if (data & 0x20)
         ResetStatus(2);
 
     if (tmp & 0x01)
@@ -68,7 +68,7 @@ bool Timer::Count(int32 us)
 
             while (timera_count <= 0)
                 timera_count += timera;
-            
+
             if (regtc & 4)
                 SetStatus(1);
         }
@@ -81,7 +81,7 @@ bool Timer::Count(int32 us)
             event = true;
             while (timerb_count <= 0)
                 timerb_count += timerb;
-            
+
             if (regtc & 8)
                 SetStatus(2);
         }
@@ -145,7 +145,7 @@ bool Timer::Count(int32 us)
 
             while (timera_count <= 0)
                 timera_count += timera;
-            
+
             if (regtc & 4)
                 SetStatus(1);
         }
@@ -158,7 +158,7 @@ bool Timer::Count(int32 us)
             event = true;
             while (timerb_count <= 0)
                 timerb_count += timerb;
-            
+
             if (regtc & 8)
                 SetStatus(2);
         }
