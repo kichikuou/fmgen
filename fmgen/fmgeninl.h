@@ -2,7 +2,7 @@
 //  FM Sound Generator
 //  Copyright (C) cisc 1998, 2003.
 // ---------------------------------------------------------------------------
-//  $Id: fmgeninl.h,v 1.26 2003/06/12 13:14:36 cisc Exp $
+//  $Id: fmgeninl.h,v 1.27 2003/09/10 13:22:50 cisc Exp $
 
 #ifndef FM_GEN_INL_H
 #define FM_GEN_INL_H
@@ -164,9 +164,24 @@ inline void Operator::SetKS(uint ks)
 inline void Operator::SetSSGEC(uint ssgec)
 {
     if (ssgec & 8)
+    {
         ssg_type_ = ssgec;
+        switch (eg_phase_)
+        {
+        case attack:
+            ssg_phase_ = 0;
+            break;
+        case decay:
+            ssg_phase_ = 1;
+            break;
+        default:
+            ssg_phase_ = 2;
+            break;
+        }
+    }
     else
         ssg_type_ = 0;
+    param_changed_ = true;
 }
 
 inline void Operator::SetAMON(bool amon)
