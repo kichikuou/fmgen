@@ -7,6 +7,8 @@
 #ifndef FM_TIMER_H
 #define FM_TIMER_H
 
+#include "common/types.h"
+
 // ---------------------------------------------------------------------------
 
 namespace FM

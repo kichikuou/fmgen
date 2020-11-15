@@ -4,7 +4,8 @@
 // ---------------------------------------------------------------------------
 //  $Id: psg.cpp,v 1.10 2002/05/15 21:38:01 cisc Exp $
 
-#include "win/headers.h"
+#include <math.h>
+#include "common/types.h"
 #include "common/misc.h"
 #include "fmgen/psg.h"
 
